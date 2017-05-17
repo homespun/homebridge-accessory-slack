@@ -1,6 +1,8 @@
 /* jshint asi: true, node: true, laxbreak: true, laxcomma: true, undef: true, unused: true */
 
 var Slack = require('node-slack')
+  , path  = require('path')
+  , url  = require('url')
   , util  = require('util')
 
 module.exports = function (homebridge) {
@@ -41,7 +43,7 @@ module.exports = function (homebridge) {
 
         this.slack.send({ channel  : this.config.channel || '#homekit'
                         , username : this.config.username || 'homekit'
-                        , icon_url : this.config.icon_url
+                        , icon_url : this.config.icon_url || this.icon_url
                         , text     : text
                         })
       }
@@ -51,7 +53,22 @@ module.exports = function (homebridge) {
 
   , getServices:
     function () {
-      require('pkginfo')(module)
+      var comps, parts
+      
+      require('pkginfo')(module, [ 'author', 'repository', 'version' ])
+      if ((module.exports.repository) && (module.exports.repository.url)) {
+        parts = url.parse(module.exports.repository.url)
+        if ((parts.protocol === 'git:') && (parts.hostname === 'github.com')) {
+          comps = path.parse(parts.pathname)
+
+          console.log(JSON.stringify(parts, null, 2))
+          console.log(JSON.stringify(comps, null, 2))
+          this.icon_url = url.format({ protocol: 'https:'
+                                     , hostname: 'raw.githubusercontent.com'
+                                     , pathname: path.join(comps.dir, comps.name, 'master', 'icon_url.png')
+                                     })
+        }
+      }
 
       this.service = new CommunityTypes.NotificationService("Notifications")
 
