@@ -1,9 +1,10 @@
 /* jshint asi: true, node: true, laxbreak: true, laxcomma: true, undef: true, unused: true */
 
-var Slack = require('node-slack')
-  , path  = require('path')
-  , url  = require('url')
-  , util  = require('util')
+var Slack      = require('node-slack')
+  , path       = require('path')
+  , underscore = require('underscore')
+  , url        = require('url')
+  , util       = require('util')
 
 module.exports = function (homebridge) {
   var Characteristic = homebridge.hap.Characteristic
@@ -25,7 +26,7 @@ module.exports = function (homebridge) {
     this.label = this.config.accessory
     this.name = this.config.name
     this.slack = new Slack(this.config.webhook)
-    this.stateValue = 0
+    this.stateValue = this.config.codes.length
   }
 
   SlackAccessory.prototype =
@@ -40,15 +41,19 @@ module.exports = function (homebridge) {
       
       if (text) {
         this.stateValue = value
-
-        this.slack.send({ channel  : this.config.channel || '#homekit'
-                        , username : this.config.username || 'homekit'
-                        , icon_url : this.config.icon_url || this.icon_url
-                        , text     : text
-                        })
+        this._slackSend()
       }
 
       callback()
+    }
+
+  , _slack:
+    function () {
+      this.slack.send({ channel  : this.config.channel || '#homekit'
+                      , username : this.config.username || 'homekit'
+                      , icon_url : this.config.icon_url || this.icon_url
+                      , text     : this.config.codes[this.stateValue]
+                      })
     }
 
   , getServices:
@@ -60,15 +65,13 @@ module.exports = function (homebridge) {
         parts = url.parse(module.exports.repository.url)
         if ((parts.protocol === 'git:') && (parts.hostname === 'github.com')) {
           comps = path.parse(parts.pathname)
-
-          console.log(JSON.stringify(parts, null, 2))
-          console.log(JSON.stringify(comps, null, 2))
           this.icon_url = url.format({ protocol: 'https:'
                                      , hostname: 'raw.githubusercontent.com'
                                      , pathname: path.join(comps.dir, comps.name, 'master', 'icon_url.png')
                                      })
         }
       }
+      this._slackSend = underscore.debounce(this._slack, 250)
 
       this.service = new CommunityTypes.NotificationService("Notifications")
 

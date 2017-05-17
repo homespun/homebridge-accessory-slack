@@ -1,5 +1,5 @@
 { "name"                         : "homebridge-accessory-slack"
-, "version"                      : "0.0.3"
+, "version"                      : "0.0.4"
 , "description"                  : "A Slack accessory plugin for Homebridge: https://github.com/nfarina/homebridge"
 , "author"                       :
   { "name"                       : "Marshall Rose"
