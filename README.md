@@ -29,7 +29,7 @@ Edit `~/.homebridge/config`, inside `"accessories": [ ... ]` add:
     { "accessory"    : "slack"
     , "name"         : "Slack Notifications"
     , "webhook"      : "https://"
-    , "codes"        : [ 'Motion detected' ]
+    , "codes"        : [ "Motion detected" ]
     , "channel"      : "#homekit"
     , "username"     : "homekit"
     }
