@@ -34,13 +34,13 @@ module.exports = function (homebridge) {
 
   , setState:
     function (value, callback) {
-      var text = this.config.codes[text]
+      var text = this.config.codes[value]
       
       if (text) {
         this.stateValue = value
 
         this.slack.send({ channel  : this.config.channel || '#homekit'
-                        , username : this.config.channel || 'homekit'
+                        , username : this.config.username || 'homekit'
                         , icon_url : this.config.icon_url
                         , text     : text
                         })
@@ -62,11 +62,9 @@ module.exports = function (homebridge) {
         .setCharacteristic(Characteristic.SerialNumber, 'Version ' + module.exports.version);
 
       this.service
-        .getCharacteristic(CommunityTypes.NotificationText)
+        .getCharacteristic(CommunityTypes.NotificationCode)
         .on('get', this.getState.bind(this))
         .on('set', this.setState.bind(this))
-
-      this.service.setCharacteristic(CommunityTypes.NotificationText, this.stateValue)
 
       return [ this.accessoryInformation, this.service ]
     }
