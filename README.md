@@ -28,8 +28,8 @@ Edit `~/.homebridge/config`, inside `"accessories": [ ... ]` add:
 
     { "accessory"    : "slack"
     , "name"         : "Slack Notifications"
-    , "webhook"      : "https://"
-    , "codes"        : [ "Motion detected" ]
+    , "webhook"      : "https://hooks.slack.com/services/.../.../..."
+    , "codes"        : [ "Motion detected", "Door Opened" ]
     , "channel"      : "#homekit"
     , "username"     : "homekit"
     }
@@ -39,7 +39,13 @@ go to
 
         https://...slack.com/apps/A0F7XDUAZ-incoming-webhooks
 
-and click on "Add Configuration".
+and click on "Add Configuration",
+this will provide a `webhook` URL such as the one in the example.
 
 The `channel` and `username` properties are optional.
-The `codes` array must contain at least one text string.
+
+The `codes` array must contain at least one text string:
+when you set `Notification Code` to an integer value,
+the string residing at that offset in `codes` is sent as a notification.
+Using the example above,
+setting `Notification Code` to `0` results in "Motion detected" being sent.
