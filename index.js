@@ -30,12 +30,12 @@ module.exports = function (homebridge) {
   }
 
   SlackAccessory.prototype =
-  { getState:
+  { getNotificationCode:
     function (callback) {
       callback(null, this.stateValue)
     }
 
-  , setState:
+  , setNotificationCode:
     function (value, callback) {
       var text = this.config.codes[value]
       
@@ -45,6 +45,11 @@ module.exports = function (homebridge) {
       }
 
       callback()
+    }
+
+  , getNotificationText:
+    function (callback) {
+      callback(null, this.config.codes[this.stateValue] || '')
     }
 
   , _slack:
@@ -83,8 +88,11 @@ module.exports = function (homebridge) {
 
       this.service
         .getCharacteristic(CommunityTypes.NotificationCode)
-        .on('get', this.getState.bind(this))
-        .on('set', this.setState.bind(this))
+        .on('get', this.getNotificationCode.bind(this))
+        .on('set', this.setNotificationCode.bind(this))
+      this.service
+        .getCharacteristic(CommunityTypes.NotificationText)
+        .on('get', this.getNotificationText.bind(this))
 
       return [ this.accessoryInformation, this.service ]
     }
