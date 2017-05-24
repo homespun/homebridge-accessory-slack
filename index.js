@@ -27,6 +27,7 @@ module.exports = function (homebridge) {
     this.name = this.config.name
     this.slack = new Slack(this.config.webhook)
     this.stateValue = this.config.codes.length
+    this.stateTime = Math.round(underscore.now() / 1000)
   }
 
   SlackAccessory.prototype =
@@ -41,6 +42,7 @@ module.exports = function (homebridge) {
       
       if (text) {
         this.stateValue = value
+        this.stateTime = Math.round(underscore.now() / 1000)
         this._slackSend()
       }
 
@@ -50,6 +52,11 @@ module.exports = function (homebridge) {
   , getNotificationText:
     function (callback) {
       callback(null, this.config.codes[this.stateValue] || '')
+    }
+
+  , getLastEventTime:
+    function (callback) {
+      callback(null, this.stateTime)
     }
 
   , _slack:
@@ -93,6 +100,10 @@ module.exports = function (homebridge) {
       this.service
         .getCharacteristic(CommunityTypes.NotificationText)
         .on('get', this.getNotificationText.bind(this))
+
+      this.service
+        .getCharacteristic(CommunityTypes.LastEventTime)
+        .on('get', this.getLastEventTime.bind(this))
 
       return [ this.accessoryInformation, this.service ]
     }

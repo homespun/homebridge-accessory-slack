@@ -49,3 +49,14 @@ when you set `Notification Code` to an integer value,
 the string residing at that offset in `codes` is sent as a notification.
 Using the example above,
 setting `Notification Code` to `0` results in "Motion detected" being sent.
+
+For example,
+here is a scene called 'Notification Code 0',
+which does just that:
+
+<img src='1.jpg' />
+
+This can be combined with a rule called "Office Door opened",
+that waits for a sensor contact to open at a certain time and then triggers that scene:
+
+<img src='2.jpg' />
