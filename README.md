@@ -23,6 +23,14 @@ and try
 
 again!
 
+NB: If you install homebridge like this:
+
+    sudo npm install -g --unsafe-perm homebridge
+
+Then all subsequent installations must be like this:
+
+    sudo npm install -g --unsafe-perm homebridge-accessory-slack
+
 # Configuration
 Edit `~/.homebridge/config`, inside `"accessories": [ ... ]` add:
 
