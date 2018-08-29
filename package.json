@@ -1,27 +1,36 @@
-{ "name"                         : "homebridge-accessory-slack"
-, "version"                      : "0.0.7"
-, "description"                  : "A Slack accessory plugin for Homebridge: https://github.com/nfarina/homebridge"
-, "author"                       :
-  { "name"                       : "Marshall Rose"
-  , "email"                      : "mrose17@homespun.io"
-  }
-, "main"                         : "index.js"
-, "scripts"                      : { "lint" : "jshint package.json *.js" }
-, "license"                      : "MIT"
-, "keywords"                     : [ "homebridge-plugin", "slack", "notifications" ]
-, "repository"                   :
-  { "type"                       : "git"
-  , "url"                        : "git://github.com/homespun/homebridge-accessory-slack.git"
-  }
-, "bugs"                         : { "url": "https://github.com/homespun/homebridge-accessory-slack/issues" }
-, "engines"                      :
-  { "node"                       : ">=0.12.0"
-  , "homebridge"                 : ">=0.4.16"
-  }
-, "dependencies"                 :
-  { "hap-nodejs-community-types" : "https://github.com/homespun/hap-nodejs-community-types.git"
-  , "pkginfo"                    : ">=0.4.0"
-  , "node-slack"                 : "0.0.7"
-  , "underscore"                 : "1.8.3"
+{
+  "name": "homebridge-accessory-slack",
+  "version": "0.1.0",
+  "description": "A Slack accessory plugin for Homebridge: https://github.com/nfarina/homebridge",
+  "author": {
+    "name": "Marshall Rose",
+    "email": "mrose17@homespun.io"
+  },
+  "main": "index.js",
+  "scripts": {
+    "lint": "jshint package.json *.js"
+  },
+  "license": "MIT",
+  "keywords": [
+    "homebridge-plugin",
+    "slack",
+    "notifications"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/homespun/homebridge-accessory-slack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/homespun/homebridge-accessory-slack/issues"
+  },
+  "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=0.4.16"
+  },
+  "dependencies": {
+    "hap-nodejs-community-types": "https://github.com/homespun/hap-nodejs-community-types.git",
+    "pkginfo": ">=0.4.0",
+    "node-slack": "0.0.7",
+    "underscore": "1.8.3"
   }
 }

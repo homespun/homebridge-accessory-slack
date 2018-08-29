@@ -9,7 +9,7 @@ Run these commands:
 
 On Linux, you might see this output for the second command:
 
-    npm ERR! pcap2@3.0.4 install: node-gyp rebuild
+    npm ERR! pcap@2.0.0 install: node-gyp rebuild
     npm ERR! Exit status 1
     npm ERR!
 
@@ -32,14 +32,12 @@ Then all subsequent installations must be like this:
     sudo npm install -g --unsafe-perm homebridge-accessory-slack
 
 # Configuration
-Edit `~/.homebridge/config`, inside `"accessories": [ ... ]` add:
+Edit `~/.homebridge/config.json`, inside `"accessories": [ ... ]` add:
 
     { "accessory"    : "slack"
     , "name"         : "Slack Notifications"
     , "webhook"      : "https://hooks.slack.com/services/.../.../..."
     , "codes"        : [ "Motion detected", "Door Opened" ]
-    , "channel"      : "#homekit"
-    , "username"     : "homekit"
     }
 
 To create an incoming `webhook` for [slack](https://slack.com),
@@ -62,9 +60,9 @@ For example,
 here is a scene called 'Notification Code 0',
 which does just that:
 
-<img src='1.jpg' />
+<img src='1.jpg' width='224' height='488' />
 
 This can be combined with a rule called "Office Door opened",
 that waits for a sensor contact to open at a certain time and then triggers that scene:
 
-<img src='2.jpg' />
+<img src='2.jpg' width='224' height='488' />

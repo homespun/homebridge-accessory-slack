@@ -61,10 +61,14 @@ module.exports = function (homebridge) {
 
   , _slack:
     function () {
-      this.slack.send({ channel  : this.config.channel || '#homekit'
-                      , username : this.config.username || 'homekit'
-                      , icon_url : this.config.icon_url || this.icon_url
-                      , text     : this.config.codes[this.stateValue]
+      var self = this
+
+      self.slack.send({ icon_url : self.config.icon_url || self.icon_url
+                      , text     : self.config.codes[self.stateValue]
+                      }, function (unknown, err, body) {
+                        if (!err) return
+                        
+                        self.log.error('send', { text: self.config.codes[self.stateValue] , diagnostic: err.toString() })
                       })
     }
 
