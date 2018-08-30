@@ -65,7 +65,7 @@ module.exports = function (homebridge) {
 
       self.slack.send({ icon_url : self.config.icon_url || self.icon_url
                       , text     : self.config.codes[self.stateValue]
-                      }, function (unknown, err, body) {
+                      }, function (unknown, err, body) {/* jshint unused: false */
                         if ((!err) || (err.message === 'ok')) return
                         
                         self.log.error('send', { text: self.config.codes[self.stateValue] , diagnostic: err.toString() })
@@ -101,6 +101,7 @@ module.exports = function (homebridge) {
         .getCharacteristic(CommunityTypes.NotificationCode)
         .on('get', this.getNotificationCode.bind(this))
         .on('set', this.setNotificationCode.bind(this))
+        .setProps({ maxValue: this.config.codes.length - 1})
       this.service
         .getCharacteristic(CommunityTypes.NotificationText)
         .on('get', this.getNotificationText.bind(this))
