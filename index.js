@@ -66,7 +66,7 @@ module.exports = function (homebridge) {
       self.slack.send({ icon_url : self.config.icon_url || self.icon_url
                       , text     : self.config.codes[self.stateValue]
                       }, function (unknown, err, body) {
-                        if (!err) return
+                        if ((!err) || (err.message === 'ok')) return
                         
                         self.log.error('send', { text: self.config.codes[self.stateValue] , diagnostic: err.toString() })
                       })
