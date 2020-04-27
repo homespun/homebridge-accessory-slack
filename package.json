@@ -8,6 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
+    "developer": "homebridge -D -U `pwd` -P `pwd`",
     "lint": "jshint package.json *.js"
   },
   "license": "MIT",
