@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "hap-nodejs-community-types": "https://github.com/homespun/hap-nodejs-community-types.git",
-    "lodash": "4.17.13",
+    "lodash": "4.17.19",
     "pkginfo": ">=0.4.0",
     "node-slack": "0.0.7",
     "underscore": "1.8.3"
