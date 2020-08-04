@@ -1,6 +1,6 @@
 {
   "name": "homebridge-accessory-slack",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A Slack accessory plugin for Homebridge: https://github.com/nfarina/homebridge",
   "author": {
     "name": "Marshall Rose",
@@ -29,10 +29,10 @@
     "homebridge": ">=0.4.16"
   },
   "dependencies": {
-    "hap-nodejs-community-types": "https://github.com/homespun/hap-nodejs-community-types.git",
+    "hap-nodejs-community-types": "git+https://github.com/homespun/hap-nodejs-community-types.git",
     "lodash": "4.17.19",
-    "pkginfo": ">=0.4.0",
     "node-slack": "0.0.7",
+    "pkginfo": ">=0.4.0",
     "underscore": "1.8.3"
   }
 }
